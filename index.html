@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>JUSTICK</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <img class="image-gradient" src="gradient.png" alt="gradient">
@@ -13,14 +15,19 @@
 
     <div class="container">
         <header>
-            <h1  data-aos="fade-down" data-aos-duration="1500" class="logo">JUSTICK</h1>
+            <div class="logo-container" data-aos="fade-down" data-aos-duration="1500">
+                <i class="fas fa-ticket-alt logo-icon"></i>
+                <h1 class="logo">JUSTICK</h1>
+            </div>
             <nav>
-                <a  data-aos="fade-down" data-aos-duration="1500" href="#">EVENTS</a>
-                <a  data-aos="fade-down" data-aos-duration="2000" href="#">TRAINS</a>
-                <a  data-aos="fade-down" data-aos-duration="2500" href="#">MOVIES</a>
-                <a  data-aos="fade-down" data-aos-duration="3000" href="#">ABOUT US</a>
+                <a  data-aos="fade-down" data-aos-duration="1500" href="events.html">EVENTS</a>
+                <a  data-aos="fade-down" data-aos-duration="2000" href="trains.html">TRAINS</a>
+                <a  data-aos="fade-down" data-aos-duration="2500" href="movies.html">MOVIES</a>
+                <a  data-aos="fade-down" data-aos-duration="3000" href="about.html">ABOUT US</a>
             </nav>
-            <button class="btn-signin">SIGN IN</button>
+            <div class="header-buttons">
+                <button class="btn-signin" onclick="location.href='signin.html'" data-aos="fade-down" data-aos-duration="2000">SIGN IN</button>
+            </div>
         </header>
 <main>
     <div class="content">
@@ -33,21 +40,21 @@
         <h1 data-aos="fade-zoom-in"
         data-aos-easing="ease-in-back"
         data-aos-delay="300"
-        data-aos-offset="0" data-aos-duration="2000"> SKIP THE <br> HASTLE </h1>
+        data-aos-offset="0" data-aos-duration="2000"> SKIP THE <br> HUSTLE </h1>
     <p data-aos="fade-zoom-in"
     data-aos-easing="ease-in-back"
     data-aos-delay="300"
-    data-aos-offset="0" data-aos-duration="2500" >Your gateway to endless events, journeys, and entertainment all in one click! <br> Your next adventure starts here !<br>
-~Soundy </p>
+    data-aos-offset="0" data-aos-duration="2500" >Your gateway to endless events, journeys, and entertainment all in one click! <br> Your next adventure starts here ! </p>
     <div class="buttons">
         <a data-aos="fade-zoom-in"
         data-aos-easing="ease-in-back"
         data-aos-delay="300"
-        data-aos-offset="0" data-aos-duration="1500"  href="#" class="btn-get-started"> Explore Cities&gt;</a>  
+        data-aos-offset="0" data-aos-duration="1500"
+        href="getstarted.html" class="btn-get-started"> Get Started &gt;</a>  
         <a data-aos="fade-zoom-in"
         data-aos-easing="ease-in-back"
         data-aos-delay="300"
-        data-aos-offset="0" data-aos-duration="1500"  href="#" class="btn-signin-main">Get Started &gt;</a>   
+        data-aos-offset="0" data-aos-duration="1500" href="cities.html" class="btn-get-started"> Explore Cities&gt;</a>  
      </div>
     </div>
 </main>
@@ -57,10 +64,74 @@ data-aos-easing="ease-in-back"
 data-aos-delay="300"
 data-aos-offset="0" data-aos-duration="3000"  class="robot-3d" url="https://prod.spline.design/Uvucpmaf9DVlIMEG/scene.splinecode"></spline-viewer>
     </div>
+    
+    <div class="help-icon">
+        <a href="support.html" class="help-button" title="Help & Support">
+            <i class="fas fa-headset"></i>
+        </a>
+    </div>
+
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
       AOS.init();
+        
+        function showCityList() {
+            document.getElementById('city-list').style.display = 'block';
+        }
+        
+        function closeCityList() {
+            document.getElementById('city-list').style.display = 'none';
+        }
     </script>
+    <div id="city-list" class="city-list" style="display: none;">
+        <h2>Explore Cities</h2>
+        <ul>
+            <li>Delhi</li>
+            <li>Mumbai</li>
+            <li>Chennai</li>
+            <li>Hyderabad</li>
+            <li>Kolkata</li>
+            <li>Gurgaon</li>
+            <li>Bengaluru</li>
+            <li>Noida</li>
+            <li>Pune</li>
+            <li>Ahmedabad</li>
+            <li>Nagpur</li>
+            <li>Chandigarh</li>
+            <li>Jaipur</li>
+            <li>Coimbatore</li>
+            <li>Kochi</li>
+            <li>Surat</li>
+            <li>Nashik</li>
+            <li>Indore</li>
+            <li>Thiruvananthapuram</li>
+            <li>Kozhikode</li>
+            <li>Mangalore</li>
+            <li>Bhubaneshwar</li>
+            <li>Vadodara</li>
+            <li>Rajkot</li>
+            <li>Lucknow</li>
+            <li>Madurai</li>
+            <li>Bhopal</li>
+            <li>Kanpur</li>
+            <li>Faridabad</li>
+            <li>Ludhiana</li>
+            <li>Vijayawada</li>
+            <li>Guwahati</li>
+            <li>Raipur</li>
+            <li>Vishakhapatnam</li>
+            <li>Patna</li>
+            <li>Jabalpur</li>
+            <li>Agra</li>
+            <li>Varanasi</li>
+            <li>Meerut</li>
+            <li>Pondicherry</li>
+            <li>Asansol</li>
+            <li>Dehradun</li>
+            <li>Ranchi</li>
+        </ul>
+        <button onclick="closeCityList()">Close</button>
+    </div>
 </body>
 </html>

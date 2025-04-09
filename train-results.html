@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Search Results - JUSTICK</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+</head>
+<body class="results-page">
+    <div class="container">
+        <div class="top-nav" data-aos="fade-down" data-aos-duration="1000">
+            <div class="nav-buttons">
+                <a href="trains.html" class="btn-back">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Search
+                </a>
+                <div class="journey-summary">
+                    <span id="fromStation">Delhi</span>
+                    <i class="fas fa-arrow-right"></i>
+                    <span id="toStation">Mumbai</span>
+                    <span class="journey-date" id="journeyDate">10 Apr, 2025</span>
+                </div>
+            </div>
+            <div class="filter-options">
+                <button class="filter-btn active" data-filter="all">All Trains</button>
+                <button class="filter-btn" data-filter="ac">AC</button>
+                <button class="filter-btn" data-filter="sleeper">Sleeper</button>
+                <button class="filter-btn" data-filter="fastest">Fastest</button>
+                <button class="filter-btn" data-filter="cheapest">Cheapest</button>
+            </div>
+        </div>
+
+        <main class="results-container">
+            <div class="results-count" data-aos="fade-right" data-aos-duration="800">
+                <h2>Available Trains</h2>
+                <span id="trainCount">5 trains found</span>
+            </div>
+
+            <div class="train-list" id="trainList">
+                <!-- Train Card 1 -->
+                <div class="train-card" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="train-header">
+                        <div class="train-name">
+                            <h3>Rajdhani Express</h3>
+                            <span class="train-number">#12951</span>
+                        </div>
+                        <div class="train-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.5</span>
+                        </div>
+                    </div>
+
+                    <div class="train-schedule">
+                        <div class="departure">
+                            <h4>05:30</h4>
+                            <p>Delhi</p>
+                            <span>10 Apr</span>
+                        </div>
+                        <div class="journey-info">
+                            <div class="duration">16h 30m</div>
+                            <div class="journey-line">
+                                <div class="stops">4 stops</div>
+                            </div>
+                        </div>
+                        <div class="arrival">
+                            <h4>22:00</h4>
+                            <p>Mumbai</p>
+                            <span>10 Apr</span>
+                        </div>
+                    </div>
+
+                    <div class="train-classes">
+                        <div class="class-option available">
+                            <span class="class-name">1AC</span>
+                            <span class="class-price">₹3,500</span>
+                            <span class="seats-left">12 seats left</span>
+                        </div>
+                        <div class="class-option available">
+                            <span class="class-name">2AC</span>
+                            <span class="class-price">₹2,200</span>
+                            <span class="seats-left">28 seats left</span>
+                        </div>
+                        <div class="class-option sold-out">
+                            <span class="class-name">3AC</span>
+                            <span class="class-price">₹1,500</span>
+                            <span class="seats-left">Sold Out</span>
+                        </div>
+                        <div class="class-option available">
+                            <span class="class-name">SL</span>
+                            <span class="class-price">₹800</span>
+                            <span class="seats-left">45 seats left</span>
+                        </div>
+                    </div>
+
+                    <button class="book-btn">
+                        Book Now
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- More train cards with similar structure but different data -->
+            </div>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="train-results.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

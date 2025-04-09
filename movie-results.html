@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Results - JUSTICK</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+</head>
+<body class="movie-results-page dark-theme">
+    <div class="container">
+        <div class="top-nav" data-aos="fade-down" data-aos-duration="1000">
+            <div class="nav-buttons">
+                <a href="movies.html" class="btn-back">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Movies
+                </a>
+            </div>
+            <div class="movie-info">
+                <div class="movie-header">
+                    <div class="movie-title-section">
+                        <h1 id="movieTitle">The Dark Knight</h1>
+                        <div class="movie-meta">
+                            <span><i class="fas fa-clock"></i> <span id="movieDuration">2h 32m</span></span>
+                            <span><i class="fas fa-star"></i> <span id="movieRating">9.0/10</span></span>
+                            <span><i class="fas fa-film"></i> <span id="movieGenre">Action, Drama, Crime</span></span>
+                        </div>
+                    </div>
+                    <div class="movie-poster">
+                        <img src="https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg" alt="The Dark Knight" id="moviePoster">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main class="results-container">
+            <div class="cinema-list" id="cinemaList">
+                <!-- Cinema 1 -->
+                <div class="cinema-card" data-aos="fade-up" data-aos-duration="800">
+                    <div class="cinema-header">
+                        <div class="cinema-info">
+                            <h3>PVR Cinemas - Phoenix Mall</h3>
+                            <div class="cinema-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Whitefield, Bangalore</span>
+                                <span><i class="fas fa-parking"></i> Free Parking</span>
+                                <span><i class="fas fa-utensils"></i> Food Court</span>
+                            </div>
+                        </div>
+                        <div class="cinema-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.5</span>
+                        </div>
+                    </div>
+
+                    <div class="show-times">
+                        <button class="time-slot" data-price="250" data-screen="IMAX">
+                            <span class="time">10:30 AM</span>
+                            <span class="screen">IMAX</span>
+                            <span class="price">₹250</span>
+                        </button>
+                        <button class="time-slot" data-price="280" data-screen="4DX">
+                            <span class="time">1:45 PM</span>
+                            <span class="screen">4DX</span>
+                            <span class="price">₹280</span>
+                        </button>
+                        <button class="time-slot sold-out" data-screen="IMAX">
+                            <span class="time">4:30 PM</span>
+                            <span class="screen">IMAX</span>
+                            <span class="status">Sold Out</span>
+                        </button>
+                        <button class="time-slot" data-price="300" data-screen="IMAX">
+                            <span class="time">7:15 PM</span>
+                            <span class="screen">IMAX</span>
+                            <span class="price">₹300</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cinema 2 -->
+                <div class="cinema-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                    <div class="cinema-header">
+                        <div class="cinema-info">
+                            <h3>INOX - Central Mall</h3>
+                            <div class="cinema-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> MG Road, Bangalore</span>
+                                <span><i class="fas fa-parking"></i> Paid Parking</span>
+                                <span><i class="fas fa-wheelchair"></i> Wheelchair Access</span>
+                            </div>
+                        </div>
+                        <div class="cinema-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.3</span>
+                        </div>
+                    </div>
+
+                    <div class="show-times">
+                        <button class="time-slot" data-price="200" data-screen="Standard">
+                            <span class="time">11:00 AM</span>
+                            <span class="screen">Standard</span>
+                            <span class="price">₹200</span>
+                        </button>
+                        <button class="time-slot" data-price="220" data-screen="Standard">
+                            <span class="time">2:15 PM</span>
+                            <span class="screen">Standard</span>
+                            <span class="price">₹220</span>
+                        </button>
+                        <button class="time-slot" data-price="250" data-screen="Premium">
+                            <span class="time">5:00 PM</span>
+                            <span class="screen">Premium</span>
+                            <span class="price">₹250</span>
+                        </button>
+                        <button class="time-slot" data-price="280" data-screen="Premium">
+                            <span class="time">8:30 PM</span>
+                            <span class="screen">Premium</span>
+                            <span class="price">₹280</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cinema 3 -->
+                <div class="cinema-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                    <div class="cinema-header">
+                        <div class="cinema-info">
+                            <h3>Cinepolis - Forum Mall</h3>
+                            <div class="cinema-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Koramangala, Bangalore</span>
+                                <span><i class="fas fa-parking"></i> Free Parking</span>
+                                <span><i class="fas fa-couch"></i> Recliner Seats</span>
+                            </div>
+                        </div>
+                        <div class="cinema-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.7</span>
+                        </div>
+                    </div>
+
+                    <div class="show-times">
+                        <button class="time-slot" data-price="350" data-screen="Recliner">
+                            <span class="time">11:30 AM</span>
+                            <span class="screen">Recliner</span>
+                            <span class="price">₹350</span>
+                        </button>
+                        <button class="time-slot sold-out" data-screen="Recliner">
+                            <span class="time">2:45 PM</span>
+                            <span class="screen">Recliner</span>
+                            <span class="status">Sold Out</span>
+                        </button>
+                        <button class="time-slot" data-price="400" data-screen="Recliner">
+                            <span class="time">6:00 PM</span>
+                            <span class="screen">Recliner</span>
+                            <span class="price">₹400</span>
+                        </button>
+                        <button class="time-slot" data-price="450" data-screen="Recliner">
+                            <span class="time">9:15 PM</span>
+                            <span class="screen">Recliner</span>
+                            <span class="price">₹450</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="movie-results.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

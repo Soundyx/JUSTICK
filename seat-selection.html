@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Seats - JUSTICK</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+</head>
+<body class="seat-selection-page">
+    <div class="container">
+        <div class="top-nav" data-aos="fade-down" data-aos-duration="1000">
+            <div class="nav-buttons">
+                <a href="javascript:history.back()" class="btn-back">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Shows
+                </a>
+            </div>
+            <div class="movie-summary">
+                <h1 id="movieTitle">The Dark Knight</h1>
+                <div class="show-details">
+                    <span id="cinemaName">PVR Cinemas - Phoenix Mall</span>
+                    <span id="showDateTime">10 Apr, 2025 | 10:30 AM</span>
+                    <span id="screenType">IMAX</span>
+                </div>
+            </div>
+        </div>
+
+        <main class="seat-selection-container">
+            <div class="screen-container" data-aos="fade-down" data-aos-duration="800">
+                <div class="screen">
+                    <span>SCREEN</span>
+                </div>
+            </div>
+
+            <div class="seat-legend" data-aos="fade-up" data-aos-duration="800">
+                <div class="legend-item">
+                    <div class="seat available"></div>
+                    <span>Available</span>
+                </div>
+                <div class="legend-item">
+                    <div class="seat selected"></div>
+                    <span>Selected</span>
+                </div>
+                <div class="legend-item">
+                    <div class="seat occupied"></div>
+                    <span>Occupied</span>
+                </div>
+                <div class="legend-item premium">
+                    <div class="seat premium"></div>
+                    <span>Premium</span>
+                </div>
+            </div>
+
+            <div class="seating-map" data-aos="fade-up" data-aos-duration="1000">
+                <!-- Row A -->
+                <div class="seat-row">
+                    <div class="row-label">A</div>
+                    <div class="seats premium">
+                        <div class="seat" data-seat="A1"></div>
+                        <div class="seat" data-seat="A2"></div>
+                        <div class="seat occupied" data-seat="A3"></div>
+                        <div class="seat occupied" data-seat="A4"></div>
+                        <div class="seat" data-seat="A5"></div>
+                        <div class="seat" data-seat="A6"></div>
+                        <div class="gap"></div>
+                        <div class="seat" data-seat="A7"></div>
+                        <div class="seat" data-seat="A8"></div>
+                        <div class="seat" data-seat="A9"></div>
+                        <div class="seat" data-seat="A10"></div>
+                        <div class="seat" data-seat="A11"></div>
+                        <div class="seat" data-seat="A12"></div>
+                    </div>
+                </div>
+
+                <!-- Row B -->
+                <div class="seat-row">
+                    <div class="row-label">B</div>
+                    <div class="seats premium">
+                        <div class="seat" data-seat="B1"></div>
+                        <div class="seat" data-seat="B2"></div>
+                        <div class="seat" data-seat="B3"></div>
+                        <div class="seat" data-seat="B4"></div>
+                        <div class="seat occupied" data-seat="B5"></div>
+                        <div class="seat occupied" data-seat="B6"></div>
+                        <div class="gap"></div>
+                        <div class="seat" data-seat="B7"></div>
+                        <div class="seat" data-seat="B8"></div>
+                        <div class="seat" data-seat="B9"></div>
+                        <div class="seat" data-seat="B10"></div>
+                        <div class="seat" data-seat="B11"></div>
+                        <div class="seat" data-seat="B12"></div>
+                    </div>
+                </div>
+
+                <!-- Regular Rows (C to G) -->
+                <div class="seat-row">
+                    <div class="row-label">C</div>
+                    <div class="seats">
+                        <div class="seat" data-seat="C1"></div>
+                        <div class="seat" data-seat="C2"></div>
+                        <div class="seat" data-seat="C3"></div>
+                        <div class="seat occupied" data-seat="C4"></div>
+                        <div class="seat occupied" data-seat="C5"></div>
+                        <div class="seat" data-seat="C6"></div>
+                        <div class="gap"></div>
+                        <div class="seat" data-seat="C7"></div>
+                        <div class="seat" data-seat="C8"></div>
+                        <div class="seat" data-seat="C9"></div>
+                        <div class="seat" data-seat="C10"></div>
+                        <div class="seat" data-seat="C11"></div>
+                        <div class="seat" data-seat="C12"></div>
+                    </div>
+                </div>
+
+                <!-- More rows with similar structure -->
+                <!-- Add rows D to G here with different occupied seats -->
+            </div>
+
+            <div class="booking-summary" data-aos="fade-up" data-aos-duration="1000">
+                <div class="summary-details">
+                    <div class="summary-row">
+                        <span>Selected Seats:</span>
+                        <span id="selectedSeats">None</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Regular Price:</span>
+                        <span id="regularPrice">₹250 × 0 = ₹0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Premium Price:</span>
+                        <span id="premiumPrice">₹350 × 0 = ₹0</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total Amount:</span>
+                        <span id="totalAmount">₹0</span>
+                    </div>
+                </div>
+                <button id="proceedBtn" class="proceed-btn" disabled>
+                    Proceed to Payment
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="seat-selection.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

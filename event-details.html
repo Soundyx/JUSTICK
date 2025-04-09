@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details - JUSTICK</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+</head>
+<body class="event-details-page dark-theme">
+    <div class="container">
+        <div class="top-nav" data-aos="fade-down" data-aos-duration="1000">
+            <div class="nav-buttons">
+                <a href="events.html" class="btn-back">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Events
+                </a>
+            </div>
+        </div>
+
+        <main class="event-details-container">
+            <!-- Featured Event -->
+            <div class="event-hero" data-aos="fade-up" data-aos-duration="1000">
+                <div class="event-banner">
+                    <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14" alt="Concert Event">
+                    <div class="event-overlay">
+                        <h1>Coldplay Music of the Spheres World Tour</h1>
+                        <div class="event-meta">
+                            <span><i class="fas fa-calendar"></i> June 15, 2025</span>
+                            <span><i class="fas fa-clock"></i> 7:00 PM</span>
+                            <span><i class="fas fa-map-marker-alt"></i> National Stadium, Singapore</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-content">
+                <!-- Event Details -->
+                <div class="event-section" data-aos="fade-up" data-aos-duration="800">
+                    <h2>Event Details</h2>
+                    <p class="event-description">
+                        Experience Coldplay's groundbreaking Music of the Spheres World Tour. The spectacular show features state-of-the-art visuals, stunning pyrotechnics, and all their greatest hits in an unforgettable evening of music and magic.
+                    </p>
+                    <div class="event-features">
+                        <div class="feature">
+                            <i class="fas fa-music"></i>
+                            <span>Live Performance</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-clock"></i>
+                            <span>3 Hours</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-users"></i>
+                            <span>All Ages</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ticket Categories -->
+                <div class="ticket-section" data-aos="fade-up" data-aos-duration="800">
+                    <h2>Select Tickets</h2>
+                    <div class="ticket-categories">
+                        <div class="ticket-card">
+                            <div class="ticket-type">VIP Package</div>
+                            <div class="ticket-price">S$688</div>
+                            <ul class="ticket-features">
+                                <li><i class="fas fa-check"></i> Premium viewing area</li>
+                                <li><i class="fas fa-check"></i> Exclusive merchandise</li>
+                                <li><i class="fas fa-check"></i> Early entry</li>
+                                <li><i class="fas fa-check"></i> Dedicated entrance</li>
+                            </ul>
+                            <button class="book-btn" onclick="selectTicket('VIP')">
+                                Select VIP
+                                <i class="fas fa-crown"></i>
+                            </button>
+                        </div>
+
+                        <div class="ticket-card">
+                            <div class="ticket-type">Category A</div>
+                            <div class="ticket-price">S$388</div>
+                            <ul class="ticket-features">
+                                <li><i class="fas fa-check"></i> Front section seating</li>
+                                <li><i class="fas fa-check"></i> Clear stage view</li>
+                                <li><i class="fas fa-check"></i> Standard entry</li>
+                            </ul>
+                            <button class="book-btn" onclick="selectTicket('A')">
+                                Select Cat A
+                                <i class="fas fa-star"></i>
+                            </button>
+                        </div>
+
+                        <div class="ticket-card">
+                            <div class="ticket-type">Category B</div>
+                            <div class="ticket-price">S$288</div>
+                            <ul class="ticket-features">
+                                <li><i class="fas fa-check"></i> Mid section seating</li>
+                                <li><i class="fas fa-check"></i> Good stage view</li>
+                                <li><i class="fas fa-check"></i> Standard entry</li>
+                            </ul>
+                            <button class="book-btn" onclick="selectTicket('B')">
+                                Select Cat B
+                                <i class="fas fa-ticket-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Summary (Initially Hidden) -->
+                <div id="bookingSummary" class="booking-summary hidden" data-aos="fade-up" data-aos-duration="800">
+                    <h2>Booking Summary</h2>
+                    <div class="summary-content">
+                        <div class="summary-row">
+                            <span>Event</span>
+                            <span>Coldplay - Music of the Spheres Tour</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Date & Time</span>
+                            <span>June 15, 2025 - 7:00 PM</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Venue</span>
+                            <span>National Stadium, Singapore</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Ticket Type</span>
+                            <span id="selectedTicketType">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Quantity</span>
+                            <div class="quantity-selector">
+                                <button onclick="updateQuantity(-1)">-</button>
+                                <span id="ticketQuantity">1</span>
+                                <button onclick="updateQuantity(1)">+</button>
+                            </div>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total Amount</span>
+                            <span id="totalAmount">S$0</span>
+                        </div>
+                    </div>
+                    <button id="proceedBtn" class="proceed-btn" onclick="proceedToPayment()">
+                        Proceed to Payment
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="event-details.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

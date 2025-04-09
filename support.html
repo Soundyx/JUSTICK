@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Support - JUSTICK</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+</head>
+<body class="support-page dark-theme">
+    <div class="container">
+        <div class="top-nav" data-aos="fade-down" data-aos-duration="1000">
+            <div class="nav-buttons">
+                <a href="index.html" class="btn-back">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Home
+                </a>
+            </div>
+            <h1>Help & Support</h1>
+        </div>
+
+        <main class="support-container" data-aos="fade-up" data-aos-duration="1000">
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot">
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <p>Hello! I'm your JUSTICK support assistant. How can I help you today?</p>
+                            <div class="quick-replies">
+                                <button onclick="sendQuickReply('Booking Issues')">Booking Issues</button>
+                                <button onclick="sendQuickReply('Payment Problems')">Payment Problems</button>
+                                <button onclick="sendQuickReply('Refund Status')">Refund Status</button>
+                                <button onclick="sendQuickReply('Technical Support')">Technical Support</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="userInput" placeholder="Type your message here..." onkeypress="handleKeyPress(event)">
+                    <button onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="support.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>
