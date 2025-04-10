@@ -16,7 +16,7 @@
                     <i class="fas fa-arrow-left"></i>
                     Back
                 </a>
-                <a href="#" class="btn-bookings">
+                <a href="#" class="btn-bookings" onclick="showBookingHistory()">
                     <i class="fas fa-ticket-alt"></i>
                     Bookings
                 </a>
@@ -102,6 +102,148 @@
         const dateInput = document.getElementById('date');
         const today = new Date().toISOString().split('T')[0];
         dateInput.min = today;
+
+        function showBookingHistory() {
+            const bookings = JSON.parse(localStorage.getItem('userBookings') || '[]');
+            
+            if (bookings.length === 0) {
+                alert('No booking history found');
+                return;
+            }
+
+            const historyDialog = document.createElement('div');
+            historyDialog.className = 'booking-history-dialog';
+            
+            const bookingsHTML = bookings.map(booking => `
+                <div class="booking-card">
+                    <div class="booking-header">
+                        <h3>${booking.movieTitle}</h3>
+                        <span class="booking-date">${new Date(booking.bookingDate).toLocaleDateString()}</span>
+                    </div>
+                    <div class="booking-info">
+                        <p><strong>Cinema:</strong> ${booking.cinema}</p>
+                        <p><strong>Show Time:</strong> ${booking.showDateTime}</p>
+                        <p><strong>Customer:</strong> ${booking.customer.name}</p>
+                        <p><strong>Seats:</strong> ${booking.seats.join(', ')}</p>
+                        <p><strong>Amount Paid:</strong> ₹${booking.totalAmount}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            historyDialog.innerHTML = `
+                <div class="history-content">
+                    <div class="history-header">
+                        <h2>Your Booking History</h2>
+                        <button class="close-btn" onclick="this.closest('.booking-history-dialog').remove()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="bookings-container">
+                        ${bookingsHTML}
+                    </div>
+                </div>
+            `;
+
+            // Add styles
+            const style = document.createElement('style');
+            style.textContent = `
+                .booking-history-dialog {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.9);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                }
+                .history-content {
+                    background: #1a1a1a;
+                    padding: 2rem;
+                    border-radius: 10px;
+                    width: 90%;
+                    max-width: 800px;
+                    max-height: 90vh;
+                    overflow-y: auto;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+                    border: 1px solid #333;
+                }
+                .history-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 2rem;
+                    padding-bottom: 1rem;
+                    border-bottom: 1px solid #333;
+                }
+                .history-header h2 {
+                    color: #ffffff;
+                    margin: 0;
+                }
+                .close-btn {
+                    background: none;
+                    border: none;
+                    color: #ffffff;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    padding: 0.5rem;
+                    transition: color 0.3s;
+                }
+                .close-btn:hover {
+                    color: #ff4444;
+                }
+                .booking-card {
+                    background: #2a2a2a;
+                    border-radius: 8px;
+                    padding: 1.5rem;
+                    margin-bottom: 1rem;
+                    border: 1px solid #333;
+                }
+                .booking-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 1rem;
+                }
+                .booking-header h3 {
+                    color: #4CAF50;
+                    margin: 0;
+                }
+                .booking-date {
+                    color: #999;
+                }
+                .booking-info p {
+                    color: #ffffff;
+                    margin: 0.5rem 0;
+                }
+                .booking-info strong {
+                    color: #2196F3;
+                }
+                .bookings-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1rem;
+                }
+                /* Scrollbar Styles */
+                .history-content::-webkit-scrollbar {
+                    width: 8px;
+                }
+                .history-content::-webkit-scrollbar-track {
+                    background: #1a1a1a;
+                }
+                .history-content::-webkit-scrollbar-thumb {
+                    background: #4CAF50;
+                    border-radius: 4px;
+                }
+                .history-content::-webkit-scrollbar-thumb:hover {
+                    background: #45a049;
+                }
+            `;
+            document.head.appendChild(style);
+            document.body.appendChild(historyDialog);
+        }
     </script>
 </body>
 </html>

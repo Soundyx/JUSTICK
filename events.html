@@ -16,7 +16,7 @@
                     <i class="fas fa-arrow-left"></i>
                     Back
                 </a>
-                <a href="#" class="btn-bookings">
+                <a href="#" class="btn-bookings" onclick="showBookingHistory()">
                     <i class="fas fa-ticket-alt"></i>
                     Bookings
                 </a>
@@ -99,6 +99,181 @@
 
         function redirectToEventDetails(eventId) {
             window.location.href = `event-details.html?eventId=${eventId}`;
+        }
+
+        function showBookingHistory() {
+            const bookings = JSON.parse(localStorage.getItem('userBookings') || '[]');
+            
+            if (bookings.length === 0) {
+                alert('No booking history found');
+                return;
+            }
+
+            const dialog = document.createElement('div');
+            dialog.className = 'booking-history-overlay';
+            dialog.innerHTML = `
+                <div class="booking-history-content">
+                    <div class="dialog-header">
+                        <h2>Your Bookings</h2>
+                        <button class="close-btn" onclick="this.closest('.booking-history-overlay').remove()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="bookings-list">
+                        ${bookings.map(booking => `
+                            <div class="booking-card">
+                                <div class="booking-header">
+                                    <h3>${booking.event}</h3>
+                                    <span class="booking-date">
+                                        <i class="fas fa-calendar"></i>
+                                        ${new Date(booking.bookingDate).toLocaleDateString()}
+                                    </span>
+                                </div>
+                                <div class="booking-info">
+                                    <p><i class="fas fa-calendar-day"></i> Event Date: ${booking.date} - ${booking.time}</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Venue: ${booking.venue}</p>
+                                    <p><i class="fas fa-ticket-alt"></i> ${booking.ticketType} (Qty: ${booking.quantity})</p>
+                                    <p><i class="fas fa-user"></i> ${booking.customer.name}</p>
+                                    <p><i class="fas fa-envelope"></i> ${booking.customer.email}</p>
+                                    <p><i class="fas fa-phone"></i> ${booking.customer.phone}</p>
+                                    <p class="total-amount"><i class="fas fa-money-bill-wave"></i> Total: S$${booking.totalAmount}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Add styles
+            const style = document.createElement('style');
+            style.textContent = `
+                .booking-history-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.9);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                }
+                .booking-history-content {
+                    background: #1a1a1a;
+                    border-radius: 10px;
+                    width: 90%;
+                    max-width: 800px;
+                    max-height: 90vh;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+                    border: 1px solid #333;
+                    animation: slideIn 0.3s ease-out;
+                }
+                .dialog-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 1.5rem;
+                    border-bottom: 1px solid #333;
+                }
+                .dialog-header h2 {
+                    color: #ffffff;
+                    margin: 0;
+                }
+                .close-btn {
+                    background: none;
+                    border: none;
+                    color: #999;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    padding: 0.5rem;
+                    transition: color 0.3s ease;
+                }
+                .close-btn:hover {
+                    color: #fff;
+                }
+                .bookings-list {
+                    padding: 1.5rem;
+                    max-height: calc(90vh - 80px);
+                    overflow-y: auto;
+                }
+                .bookings-list::-webkit-scrollbar {
+                    width: 8px;
+                }
+                .bookings-list::-webkit-scrollbar-track {
+                    background: #1a1a1a;
+                }
+                .bookings-list::-webkit-scrollbar-thumb {
+                    background: #333;
+                    border-radius: 4px;
+                }
+                .bookings-list::-webkit-scrollbar-thumb:hover {
+                    background: #444;
+                }
+                .booking-card {
+                    background: #2a2a2a;
+                    border-radius: 8px;
+                    padding: 1.5rem;
+                    margin-bottom: 1rem;
+                    border: 1px solid #333;
+                }
+                .booking-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    margin-bottom: 1rem;
+                    padding-bottom: 1rem;
+                    border-bottom: 1px solid #333;
+                }
+                .booking-header h3 {
+                    color: #4CAF50;
+                    margin: 0;
+                    font-size: 1.2rem;
+                }
+                .booking-date {
+                    color: #999;
+                    font-size: 0.9rem;
+                }
+                .booking-info p {
+                    color: #fff;
+                    margin: 0.5rem 0;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+                .booking-info i {
+                    color: #4CAF50;
+                    width: 20px;
+                }
+                .total-amount {
+                    margin-top: 1rem;
+                    padding-top: 1rem;
+                    border-top: 1px solid #333;
+                    font-weight: bold;
+                    color: #4CAF50;
+                }
+                @keyframes slideIn {
+                    from {
+                        transform: translateY(-50px);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
+                }
+                @media (max-width: 600px) {
+                    .booking-header {
+                        flex-direction: column;
+                        gap: 0.5rem;
+                    }
+                    .booking-date {
+                        font-size: 0.8rem;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            document.body.appendChild(dialog);
         }
     </script>
 </body>
