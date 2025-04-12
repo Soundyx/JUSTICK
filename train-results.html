@@ -3,11 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Train Search Results - JUSTICK</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>Train Results - JUSTICK</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .train-card {
+            background: #2a2a2a;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .train-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .train-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .train-name {
+            font-size: 1.4rem;
+            color: #fff;
+        }
+
+        .train-price {
+            font-size: 1.3rem;
+            color: #4CAF50;
+        }
+
+        .train-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-item i {
+            color: #4CAF50;
+        }
+
+        .book-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .book-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #333;
+            padding: 20px;
+            border-radius: 12px;
+            z-index: 1000;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .payment-option {
+            position: relative;
+            padding: 1rem;
+            background: #2a2a2a;
+            border: 2px solid #333;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-option:hover {
+            border-color: #4CAF50;
+            background: #333;
+        }
+
+        .payment-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .payment-option label {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .payment-option i {
+            font-size: 1.5rem;
+            color: #4CAF50;
+        }
+
+        .payment-option input[type="radio"]:checked + label {
+            color: #4CAF50;
+        }
+    </style>
 </head>
 <body class="results-page">
     <div class="container">
@@ -95,21 +217,238 @@
                         </div>
                     </div>
 
-                    <button class="book-btn">
-                        Book Now
-                        <i class="fas fa-arrow-right"></i>
+                    <button class="book-btn" onclick="openPaymentModal('Rajdhani Express', '₹3,500', '05:30 AM')">
+                        Book Now <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
 
-                <!-- More train cards with similar structure but different data -->
+                <!-- Train Card 2 -->
+                <div class="train-card" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="train-header">
+                        <div class="train-name">
+                            <h3>Shatabdi Express</h3>
+                            <span class="train-number">#12001</span>
+                        </div>
+                        <div class="train-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.2</span>
+                        </div>
+                    </div>
+
+                    <div class="train-schedule">
+                        <div class="departure">
+                            <h4>06:00</h4>
+                            <p>Delhi</p>
+                            <span>10 Apr</span>
+                        </div>
+                        <div class="journey-info">
+                            <div class="duration">14h 30m</div>
+                            <div class="journey-line">
+                                <div class="stops">3 stops</div>
+                            </div>
+                        </div>
+                        <div class="arrival">
+                            <h4>20:30</h4>
+                            <p>Mumbai</p>
+                            <span>10 Apr</span>
+                        </div>
+                    </div>
+
+                    <div class="train-classes">
+                        <div class="class-option available">
+                            <span class="class-name">1AC</span>
+                            <span class="class-price">₹3,000</span>
+                            <span class="seats-left">15 seats left</span>
+                        </div>
+                        <div class="class-option available">
+                            <span class="class-name">2AC</span>
+                            <span class="class-price">₹2,000</span>
+                            <span class="seats-left">25 seats left</span>
+                        </div>
+                        <div class="class-option sold-out">
+                            <span class="class-name">3AC</span>
+                            <span class="class-price">₹1,200</span>
+                            <span class="seats-left">Sold Out</span>
+                        </div>
+                        <div class="class-option available">
+                            <span class="class-name">SL</span>
+                            <span class="class-price">₹600</span>
+                            <span class="seats-left">40 seats left</span>
+                        </div>
+                    </div>
+
+                    <button class="book-btn" onclick="openPaymentModal('Shatabdi Express', '₹3,000', '06:00 AM')">
+                        Book Now <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Train Card 3 -->
+                <div class="train-card" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="train-header">
+                        <div class="train-name">
+                            <h3>Duronto Express</h3>
+                            <span class="train-number">#12283</span>
+                        </div>
+                        <div class="train-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.0</span>
+                        </div>
+                    </div>
+
+                    <div class="train-schedule">
+                        <div class="departure">
+                            <h4>07:00</h4>
+                            <p>Delhi</p>
+                            <span>10 Apr</span>
+                        </div>
+                        <div class="journey-info">
+                            <div class="duration">13h 30m</div>
+                            <div class="journey-line">
+                                <div class="stops">2 stops</div>
+                            </div>
+                        </div>
+                        <div class="arrival">
+                            <h4>20:30</h4>
+                            <p>Mumbai</p>
+                            <span>10 Apr</span>
+                        </div>
+                    </div>
+
+                    <div class="train-classes">
+                        <div class="class-option available">
+                            <span class="class-name">1AC</span>
+                            <span class="class-price">₹2,500</span>
+                            <span class="seats-left">10 seats left</span>
+                        </div>
+                        <div class="class-option available">
+                            <span class="class-name">2AC</span>
+                            <span class="class-price">₹1,800</span>
+                            <span class="seats-left">20 seats left</span>
+                        </div>
+                        <div class="class-option sold-out">
+                            <span class="class-name">3AC</span>
+                            <span class="class-price">₹1,000</span>
+                            <span class="seats-left">Sold Out</span>
+                        </div>
+                        <div class="class-option available">
+                            <span class="class-name">SL</span>
+                            <span class="class-price">₹500</span>
+                            <span class="seats-left">35 seats left</span>
+                        </div>
+                    </div>
+
+                    <button class="book-btn" onclick="openPaymentModal('Duronto Express', '₹2,500', '07:00 AM')">
+                        Book Now <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
             </div>
         </main>
     </div>
 
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="payment-modal">
+        <h2>Select Payment Method</h2>
+        <div id="bookingSummary" style="margin: 20px 0; padding: 15px; background: #2a2a2a; border-radius: 8px;">
+            <h3>Booking Summary</h3>
+            <p id="trainName"></p>
+            <p id="departureTime"></p>
+            <p id="trainPrice"></p>
+        </div>
+        <div class="payment-methods">
+            <div class="payment-option">
+                <input type="radio" id="gpay" name="payment" value="gpay" required>
+                <label for="gpay">
+                    <i class="fab fa-google-pay"></i>
+                    Google Pay
+                </label>
+            </div>
+            <div class="payment-option">
+                <input type="radio" id="phonepe" name="payment" value="phonepe">
+                <label for="phonepe">
+                    <i class="fas fa-mobile-alt"></i>
+                    PhonePe
+                </label>
+            </div>
+            <div class="payment-option">
+                <input type="radio" id="netbanking" name="payment" value="netbanking">
+                <label for="netbanking">
+                    <i class="fas fa-university"></i>
+                    Net Banking
+                </label>
+            </div>
+        </div>
+        <button class="book-btn" onclick="processPayment()">Confirm Payment</button>
+    </div>
+
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script src="train-results.js"></script>
     <script>
         AOS.init();
+
+        let currentBooking = {};
+
+        function openPaymentModal(trainName, price, departure) {
+            currentBooking = { trainName, price, departure };
+            const modal = document.getElementById('paymentModal');
+            document.getElementById('trainName').textContent = `Train: ${trainName}`;
+            document.getElementById('departureTime').textContent = `Departure: ${departure}`;
+            document.getElementById('trainPrice').textContent = `Price: ${price}`;
+            modal.style.display = 'block';
+        }
+
+        function processPayment() {
+            const selectedPayment = document.querySelector('input[name="payment"]:checked');
+            if (!selectedPayment) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Please select a payment method',
+                    text: 'You must choose a payment method to proceed'
+                });
+                return;
+            }
+
+            // Show loading state
+            Swal.fire({
+                title: 'Processing Payment',
+                text: 'Please wait while we process your payment...',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                willOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Simulate payment processing
+            setTimeout(() => {
+                document.getElementById('paymentModal').style.display = 'none';
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Booking Successful!',
+                    html: `
+                        <div style="text-align: left; margin-top: 20px;">
+                            <h3>Booking Details:</h3>
+                            <p><strong>Train:</strong> ${currentBooking.trainName}</p>
+                            <p><strong>Departure:</strong> ${currentBooking.departure}</p>
+                            <p><strong>Price:</strong> ${currentBooking.price}</p>
+                            <p><strong>Payment Method:</strong> ${selectedPayment.value}</p>
+                        </div>
+                    `,
+                    confirmButtonText: 'View Booking Details',
+                    allowOutsideClick: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'booking-success.html';
+                    }
+                });
+            }, 2000);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('paymentModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html>

@@ -73,7 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // Function to select ticket type
 function selectTicket(type) {
     selectedTicketType = type;
-    document.getElementById('selectedTicketType').textContent = `Category ${type}`;
+    const ticketPrice = ticketPrices[type];
+    
+    // Update booking summary
+    document.getElementById('selectedTicketType').textContent = `Category ${type} (S$${ticketPrice})`;
     document.getElementById('bookingSummary').classList.remove('hidden');
     updateTotal();
 
@@ -102,10 +105,106 @@ function updateTotal() {
     document.getElementById('totalAmount').textContent = `S$${total}`;
 }
 
-// Handle payment
+// Function to proceed to payment
 function proceedToPayment() {
-    // Show customer details form
-    showCustomerForm();
+    const selectedPayment = document.querySelector('input[name="payment"]:checked');
+    if (!selectedPayment) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Please select a payment method',
+            text: 'You must choose a payment method to proceed'
+        });
+        return;
+    }
+
+    if (!selectedTicketType) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Please select a ticket type',
+            text: 'You must choose a ticket category to proceed'
+        });
+        return;
+    }
+
+    // Get event details
+    const urlParams = new URLSearchParams(window.location.search);
+    const eventId = urlParams.get('eventId');
+    const event = events[eventId];
+
+    // Show loading state
+    Swal.fire({
+        title: 'Processing Payment',
+        text: 'Please wait while we process your payment...',
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        willOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    // Calculate ticket details
+    const ticketPrice = ticketPrices[selectedTicketType];
+    const totalAmount = ticketPrice * ticketQuantity;
+    const ticketDetails = {
+        category: selectedTicketType,
+        pricePerTicket: ticketPrice,
+        quantity: ticketQuantity,
+        total: totalAmount
+    };
+
+    // Generate booking ID
+    const bookingId = 'EV' + Date.now().toString().slice(-8);
+
+    // Prepare booking data
+    const bookingData = {
+        type: 'event',
+        bookingId: bookingId,
+        eventTitle: event.title,
+        eventDateTime: `${event.date} ${event.time}`,
+        venue: event.venue,
+        ticketType: `Category ${selectedTicketType}`,
+        pricePerTicket: ticketPrice,
+        quantity: ticketQuantity,
+        totalAmount: totalAmount,
+        payment: {
+            method: selectedPayment.value,
+            status: 'completed'
+        },
+        // Additional event details
+        eventImage: event.image,
+        eventDescription: event.description
+    };
+
+    // Simulate payment processing
+    setTimeout(() => {
+        // Save booking data to session storage
+        sessionStorage.setItem('bookingData', JSON.stringify(bookingData));
+
+        // Show success message with details
+        Swal.fire({
+            icon: 'success',
+            title: 'Booking Successful!',
+            html: `
+                <div style="text-align: left; margin-top: 20px;">
+                    <h3>Booking Details:</h3>
+                    <p><strong>Event:</strong> ${event.title}</p>
+                    <p><strong>Date & Time:</strong> ${event.date} ${event.time}</p>
+                    <p><strong>Venue:</strong> ${event.venue}</p>
+                    <p><strong>Ticket Type:</strong> Category ${selectedTicketType}</p>
+                    <p><strong>Price per Ticket:</strong> S$${ticketPrice}</p>
+                    <p><strong>Quantity:</strong> ${ticketQuantity}</p>
+                    <p><strong>Total Amount:</strong> S$${totalAmount}</p>
+                    <p><strong>Booking ID:</strong> ${bookingId}</p>
+                </div>
+            `,
+            confirmButtonText: 'View E-Ticket',
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'booking-success.html';
+            }
+        });
+    }, 2000);
 }
 
 // Show customer form

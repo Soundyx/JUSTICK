@@ -8,6 +8,57 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .payment-option {
+            position: relative;
+            padding: 1rem;
+            background: #2a2a2a;
+            border: 2px solid #333;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-option:hover {
+            border-color: #4CAF50;
+            background: #333;
+        }
+
+        .payment-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .payment-option label {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .payment-option i {
+            font-size: 1.5rem;
+            color: #4CAF50;
+        }
+
+        .payment-option input[type="radio"]:checked + label {
+            color: #4CAF50;
+        }
+
+        .payment-option input[type="radio"]:checked + label i {
+            color: #4CAF50;
+        }
+    </style>
 </head>
 <body class="event-details-page dark-theme">
     <div class="container">
@@ -141,6 +192,30 @@
                             <span id="totalAmount">S$0</span>
                         </div>
                     </div>
+                    <div class="payment-methods">
+                        <h3>Select Payment Method</h3>
+                        <div class="payment-option">
+                            <input type="radio" id="gpay" name="payment" value="gpay" required>
+                            <label for="gpay">
+                                <i class="fab fa-google-pay"></i>
+                                Google Pay
+                            </label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="phonepe" name="payment" value="phonepe">
+                            <label for="phonepe">
+                                <i class="fas fa-mobile-alt"></i>
+                                PhonePe
+                            </label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="netbanking" name="payment" value="netbanking">
+                            <label for="netbanking">
+                                <i class="fas fa-university"></i>
+                                Net Banking
+                            </label>
+                        </div>
+                    </div>
                     <button id="proceedBtn" class="proceed-btn" onclick="proceedToPayment()">
                         Proceed to Payment
                         <i class="fas fa-arrow-right"></i>
@@ -154,6 +229,44 @@
     <script src="event-details.js"></script>
     <script>
         AOS.init();
+
+        function proceedToPayment() {
+            const selectedPayment = document.querySelector('input[name="payment"]:checked');
+            if (!selectedPayment) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Please select a payment method',
+                    text: 'You must choose a payment method to proceed'
+                });
+                return;
+            }
+
+            // Show loading state
+            Swal.fire({
+                title: 'Processing Payment',
+                text: 'Please wait while we process your payment...',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                willOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Simulate payment processing
+            setTimeout(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Booking Successful!',
+                    text: 'Your event tickets have been booked successfully. You will receive a confirmation email shortly.',
+                    confirmButtonText: 'View Booking Details',
+                    allowOutsideClick: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'booking-success.html';
+                    }
+                });
+            }, 2000);
+        }
     </script>
 </body>
 </html>

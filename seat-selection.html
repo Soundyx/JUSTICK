@@ -94,6 +94,70 @@
             background: #1976D2;
             box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
         }
+
+        /* Payment Methods Styles */
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .payment-option {
+            position: relative;
+            padding: 1rem;
+            background: #2a2a2a;
+            border: 2px solid #333;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-option:hover {
+            border-color: #4CAF50;
+            background: #333;
+        }
+
+        .payment-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .payment-option label {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .payment-option i {
+            font-size: 1.5rem;
+            color: #4CAF50;
+        }
+
+        .payment-option .phonepe-logo {
+            height: 24px;
+            width: auto;
+        }
+
+        .payment-option input[type="radio"]:checked + label {
+            color: #4CAF50;
+        }
+
+        .payment-option input[type="radio"]:checked + label i {
+            color: #4CAF50;
+        }
+
+        .payment-option input[type="radio"]:checked + label .phonepe-logo {
+            filter: brightness(1.2);
+        }
+
+        .payment-option input[type="radio"]:checked ~ .payment-option {
+            border-color: #4CAF50;
+            background: #333;
+        }
     </style>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
@@ -244,6 +308,34 @@
                     <div class="form-group">
                         <input type="tel" id="customerPhone" placeholder="Phone Number" required>
                     </div>
+                    
+                    <h3>Payment Method</h3>
+                    <div class="payment-methods">
+                        <div class="payment-option">
+                            <input type="radio" id="gpay" name="payment" value="gpay" required>
+                            <label for="gpay">
+                                <i class="fab fa-google-pay"></i>
+                                Google Pay
+                            </label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="phonepe" name="payment" value="phonepe">
+                            <label for="phonepe">
+                                <img src="https://www.phonepe.com/images/PhonePe-Logo.svg" alt="PhonePe" class="phonepe-logo">
+                                PhonePe
+                            </label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="netbanking" name="payment" value="netbanking">
+                            <label for="netbanking">
+                                <i class="fas fa-university"></i>
+                                Net Banking
+                            </label>
+                        </div>
+                    </div>
+                    <form id="bookingForm">
+                        <button type="submit" id="confirmBtn">Proceed to Payment <i class="fas fa-credit-card"></i></button>
+                    </form>
                 </div>
             </div>
         </main>
@@ -251,8 +343,50 @@
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="seat-selection.js"></script>
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         AOS.init();
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get selected payment method
+            const selectedPayment = document.querySelector('input[name="payment"]:checked');
+            if (!selectedPayment) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Please select a payment method',
+                    text: 'You must choose a payment method to proceed'
+                });
+                return;
+            }
+
+            // Show loading state
+            Swal.fire({
+                title: 'Processing Payment',
+                text: 'Please wait while we process your payment...',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                willOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Simulate payment processing
+            setTimeout(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Booking Successful!',
+                    text: 'Your tickets have been booked successfully. You will receive a confirmation email shortly.',
+                    confirmButtonText: 'View Booking Details',
+                    allowOutsideClick: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'booking-success.html';
+                    }
+                });
+            }, 2000);
+        });
     </script>
 </body>
 </html>

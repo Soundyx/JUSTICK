@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - JUSTICK</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+    <style>
+        .payment-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .payment-method {
+            padding: 1.5rem;
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .payment-method:hover {
+            transform: translateY(-2px);
+            border-color: #4CAF50;
+            background: #2a2a2a;
+        }
+        .payment-method.active {
+            border-color: #4CAF50;
+            background: #2a2a2a;
+        }
+        .payment-method i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #4CAF50;
+        }
+        .payment-method h3 {
+            color: #fff;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        .payment-details {
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            border: 1px solid #333;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ccc;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            background: #2a2a2a;
+            border: 2px solid #333;
+            border-radius: 6px;
+            color: white;
+            font-size: 1rem;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        .card-extra {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .pay-button {
+            width: 100%;
+            padding: 1rem;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+        .pay-button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        .pay-button i {
+            font-size: 1.2rem;
+        }
+        .payment-summary {
+            background: #1a1a1a;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border: 1px solid #333;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+        .summary-row.total {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #333;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body class="payment-page">
+    <div class="container">
+        <div class="top-nav" data-aos="fade-down" data-aos-duration="1000">
+            <div class="nav-buttons">
+                <a href="javascript:history.back()" class="btn-back">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Booking
+                </a>
+            </div>
+            <h1>Payment Details</h1>
+        </div>
+        
+        <div class="payment-container">
+            <div class="payment-summary" data-aos="fade-up" data-aos-duration="800">
+                <div class="summary-row">
+                    <span>Movie:</span>
+                    <span id="movieTitle">Loading...</span>
+                </div>
+                <div class="summary-row">
+                    <span>Selected Seats:</span>
+                    <span id="selectedSeats">Loading...</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total Amount:</span>
+                    <span id="totalAmount">Loading...</span>
+                </div>
+            </div>
+
+            <div class="payment-methods" data-aos="fade-up" data-aos-duration="1000">
+                <div class="payment-method" data-method="card">
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Credit/Debit Card</h3>
+                </div>
+                <div class="payment-method" data-method="gpay">
+                    <i class="fab fa-google-pay"></i>
+                    <h3>Google Pay</h3>
+                </div>
+                <div class="payment-method" data-method="phonepay">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>PhonePe</h3>
+                </div>
+            </div>
+            
+            <div id="cardDetails" class="payment-details" style="display: none;" data-aos="fade-up" data-aos-duration="800">
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="16">
+                </div>
+                <div class="card-extra">
+                    <div class="form-group">
+                        <label for="expiryDate">Expiry Date</label>
+                        <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5">
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="password" id="cvv" placeholder="123" maxlength="3">
+                    </div>
+                </div>
+            </div>
+            
+            <div id="upiDetails" class="payment-details" style="display: none;" data-aos="fade-up" data-aos-duration="800">
+                <div class="form-group">
+                    <label for="upiId">UPI ID</label>
+                    <input type="text" id="upiId" placeholder="username@upi">
+                </div>
+            </div>
+            
+            <button id="payButton" class="pay-button" data-aos="fade-up" data-aos-duration="800">
+                Process Payment
+                <i class="fas fa-lock"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script src="payment.js"></script>
+</body>
+</html>

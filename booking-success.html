@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Successful - JUSTICK</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+    <style>
+        .success-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            text-align: center;
+        }
+        .success-icon {
+            font-size: 5rem;
+            color: #4CAF50;
+            margin-bottom: 1.5rem;
+            animation: bounceIn 1s ease;
+        }
+        .success-message {
+            color: #fff;
+            margin-bottom: 2rem;
+        }
+        .success-message h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .success-message p {
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+        .booking-details {
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            text-align: left;
+            border: 1px solid #333;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #333;
+            color: #fff;
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .detail-row strong {
+            color: #4CAF50;
+        }
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .action-button {
+            padding: 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: white;
+        }
+        .home-btn {
+            background: #2196F3;
+        }
+        .home-btn:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+        }
+        .bookings-btn {
+            background: #4CAF50;
+        }
+        .bookings-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        .qr-code {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 2rem auto;
+            width: fit-content;
+        }
+        .booking-id {
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: #4CAF50;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body class="success-page">
+    <div class="container">
+        <div class="success-container">
+            <div class="success-icon" data-aos="zoom-in" data-aos-duration="800">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="success-message" data-aos="fade-up" data-aos-duration="800">
+                <h2>Booking Successful!</h2>
+                <p id="bookingType">Your booking has been confirmed successfully.</p>
+                <div class="booking-id" id="bookingId"></div>
+            </div>
+            
+            <div class="booking-details" data-aos="fade-up" data-aos-duration="1000">
+                <!-- Movie specific details -->
+                <div id="movieDetails" style="display: none;">
+                    <div class="detail-row">
+                        <span>Movie</span>
+                        <strong id="movieTitle">Loading...</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Show Time</span>
+                        <strong id="showTime">Loading...</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Cinema</span>
+                        <strong id="cinema">Loading...</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Seats</span>
+                        <strong id="seats">Loading...</strong>
+                    </div>
+                </div>
+
+                <!-- Event specific details -->
+                <div id="eventDetails" style="display: none;">
+                    <div class="detail-row">
+                        <span>Event</span>
+                        <strong id="eventTitle">Loading...</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Date & Time</span>
+                        <strong id="eventDateTime">Loading...</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Venue</span>
+                        <strong id="eventVenue">Loading...</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Ticket Type</span>
+                        <strong id="ticketType">Loading...</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Price per Ticket</span>
+                        <strong id="ticketPrice">Loading...</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Quantity</span>
+                        <strong id="ticketQuantity">Loading...</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Total Amount</span>
+                        <strong id="eventTotalAmount">Loading...</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Payment Method</span>
+                        <strong id="eventPaymentMethod">Loading...</strong>
+                    </div>
+                </div>
+
+                <!-- Train specific details -->
+                <div id="trainDetails" style="display: none;">
+                    <div class="detail-row">
+                        <span>Train</span>
+                        <strong id="trainName">Loading...</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Departure</span>
+                        <strong id="trainDeparture">Loading...</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Class</span>
+                        <strong id="trainClass">Loading...</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Seats</span>
+                        <strong id="trainSeats">Loading...</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>PNR</span>
+                        <strong id="pnrNumber">Loading...</strong>
+                    </div>
+                </div>
+
+                <!-- Common details -->
+                <div class="detail-row">
+                    <span>Amount Paid</span>
+                    <strong id="amount">Loading...</strong>
+                </div>
+                <div class="detail-row">
+                    <span>Payment Method</span>
+                    <strong id="paymentMethod">Loading...</strong>
+                </div>
+            </div>
+
+            <div class="qr-code" data-aos="fade-up" data-aos-duration="1000">
+                <img id="qrCode" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=placeholder" alt="Booking QR Code">
+            </div>
+            
+            <div class="action-buttons" data-aos="fade-up" data-aos-duration="1200">
+                <button class="action-button home-btn" onclick="window.location.href='index.html'">
+                    <i class="fas fa-home"></i>
+                    Back to Home
+                </button>
+                <button class="action-button bookings-btn" onclick="window.location.href='bookings.html'">
+                    <i class="fas fa-ticket-alt"></i>
+                    My Bookings
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        // Get booking data and update the page
+        document.addEventListener('DOMContentLoaded', () => {
+            const bookingData = JSON.parse(sessionStorage.getItem('bookingData') || '{}');
+            if (bookingData) {
+                // Generate a random booking ID
+                const bookingId = bookingData.type === 'train' ? 
+                    'PNR' + Date.now().toString().slice(-6) : 
+                    'BK' + Date.now().toString().slice(-8);
+                document.getElementById('bookingId').textContent = bookingId;
+
+                // Hide all detail sections first
+                document.getElementById('movieDetails').style.display = 'none';
+                document.getElementById('eventDetails').style.display = 'none';
+                document.getElementById('trainDetails').style.display = 'none';
+
+                // Update booking type message
+                const typeMessages = {
+                    movie: 'Your movie tickets have been booked successfully.',
+                    event: 'Your event tickets have been booked successfully.',
+                    train: 'Your train tickets have been booked successfully.'
+                };
+                document.getElementById('bookingType').textContent = typeMessages[bookingData.type] || typeMessages.movie;
+
+                // Show and update relevant details based on booking type
+                if (bookingData.type === 'event') {
+                    document.getElementById('eventDetails').style.display = 'block';
+                    document.getElementById('eventTitle').textContent = bookingData.eventTitle || 'N/A';
+                    document.getElementById('eventDateTime').textContent = bookingData.eventDateTime || 'N/A';
+                    document.getElementById('eventVenue').textContent = bookingData.venue || 'N/A';
+                    document.getElementById('ticketType').textContent = bookingData.ticketType || 'N/A';
+                    document.getElementById('ticketPrice').textContent = `S$${bookingData.pricePerTicket || 0}`;
+                    document.getElementById('ticketQuantity').textContent = bookingData.quantity || 'N/A';
+                    document.getElementById('eventTotalAmount').textContent = `S$${bookingData.totalAmount || 0}`;
+                    document.getElementById('eventPaymentMethod').textContent = 
+                        bookingData.payment ? 
+                        (bookingData.payment.method === 'gpay' ? 'Google Pay' :
+                         bookingData.payment.method === 'phonepe' ? 'PhonePe' :
+                         bookingData.payment.method === 'netbanking' ? 'Net Banking' : 
+                         bookingData.payment.method) : 'N/A';
+                } else if (bookingData.type === 'train') {
+                    document.getElementById('trainDetails').style.display = 'block';
+                    document.getElementById('trainName').textContent = bookingData.trainName || 'N/A';
+                    document.getElementById('trainDeparture').textContent = bookingData.departure || 'N/A';
+                    document.getElementById('trainClass').textContent = bookingData.class || 'N/A';
+                    document.getElementById('trainSeats').textContent = bookingData.seats || 'N/A';
+                    document.getElementById('pnrNumber').textContent = bookingId;
+                } else {
+                    // Default to movie booking
+                    document.getElementById('movieDetails').style.display = 'block';
+                    document.getElementById('movieTitle').textContent = bookingData.movieTitle || 'N/A';
+                    document.getElementById('showTime').textContent = bookingData.showDateTime || 'N/A';
+                    document.getElementById('cinema').textContent = bookingData.cinema || 'N/A';
+                    document.getElementById('seats').textContent = bookingData.seats ? bookingData.seats.join(', ') : 'N/A';
+                }
+
+                // Update common details
+                document.getElementById('amount').textContent = `₹${bookingData.totalAmount || 0}`;
+                document.getElementById('paymentMethod').textContent = 
+                    bookingData.payment ? 
+                    (bookingData.payment.method === 'gpay' ? 'Google Pay' :
+                     bookingData.payment.method === 'phonepe' ? 'PhonePe' :
+                     bookingData.payment.method === 'netbanking' ? 'Net Banking' : bookingData.payment.method) : 'N/A';
+
+                // Update QR code with booking details
+                const qrData = `JUSTICK-${bookingId}-${bookingData.type}-${JSON.stringify(bookingData)}`;
+                document.getElementById('qrCode').src = 
+                    `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrData)}`;
+            }
+        });
+    </script>
+</body>
+</html>
